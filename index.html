@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev-Flow - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+        }
+
+        .login-box {
+            background: linear-gradient(135deg, #1a1f3a 0%, #2a2f4a 100%);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(157, 78, 221, 0.3);
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #3c3d66;
+        }
+
+        .login-box h1 {
+            text-align: center;
+            color: #e0aaff;
+            margin-bottom: 30px;
+            font-size: 36px;
+        }
+
+        .login-box p {
+            text-align: center;
+            color: #b8b8ff;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #e0aaff;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background-color: #0a0e27;
+            border: 2px solid #3c3d66;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #9d4edd;
+            box-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #9d4edd 0%, #7b2cbf 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(157, 78, 221, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(157, 78, 221, 0.5);
+        }
+
+        .error {
+            color: #ef476f;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .success {
+            color: #06d6a0;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h1>Dev-Flow</h1>
+            <p>Secure Database Access Platform</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+                <div class="error" id="errorMsg"></div>
+                <div class="success" id="successMsg"></div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
