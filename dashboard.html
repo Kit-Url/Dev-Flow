@@ -23,20 +23,17 @@
                 <a href="#dashboard" class="nav-item active" data-section="dashboard">
                     <span class="icon">📊</span> Dashboard
                 </a>
-                <a href="#stock" class="nav-item" data-section="stock">
-                    <span class="icon">📦</span> Stock/Inventory
+                <a href="#stocks" class="nav-item" data-section="stocks">
+                    <span class="icon">📦</span> Stocks
                 </a>
                 <a href="#customers" class="nav-item" data-section="customers">
                     <span class="icon">👥</span> Customers
                 </a>
-                <a href="#orders" class="nav-item" data-section="orders">
-                    <span class="icon">🛒</span> Orders/Purchases
+                <a href="#settings" class="nav-item" data-section="settings">
+                    <span class="icon">⚙️</span> Settings
                 </a>
-                <a href="#query" class="nav-item" data-section="query">
-                    <span class="icon">🔍</span> Query Tool
-                </a>
-                <a href="#audit" class="nav-item" data-section="audit">
-                    <span class="icon">📋</span> Audit Log
+                <a href="#others" class="nav-item" data-section="others">
+                    <span class="icon">⋯</span> Others
                 </a>
             </nav>
         </aside>
@@ -45,7 +42,7 @@
         <main class="main-content">
             <!-- Dashboard Section -->
             <section id="dashboard" class="content-section active">
-                <h1>Welcome to Dev-Flow</h1>
+                <h1>Welcome to Dev-Flow Dashboard</h1>
                 <div class="stats-grid">
                     <div class="stat-card">
                         <h3>Total Stock Items</h3>
@@ -56,12 +53,12 @@
                         <p class="stat-number" id="totalCustomers">0</p>
                     </div>
                     <div class="stat-card">
-                        <h3>Total Orders</h3>
-                        <p class="stat-number" id="totalOrders">0</p>
-                    </div>
-                    <div class="stat-card">
                         <h3>Low Stock Items</h3>
                         <p class="stat-number" id="lowStock">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>System Status</h3>
+                        <p class="stat-number" id="systemStatus" style="color: #06d6a0;">Online</p>
                     </div>
                 </div>
                 <div class="recent-activity">
@@ -70,29 +67,47 @@
                 </div>
             </section>
 
-            <!-- Stock/Inventory Section -->
-            <section id="stock" class="content-section">
+            <!-- Stocks Section -->
+            <section id="stocks" class="content-section">
                 <div class="section-header">
-                    <h1>Stock/Inventory Management</h1>
+                    <h1>Stock Management</h1>
                     <button class="btn-primary" id="addStockBtn">+ Add Stock Item</button>
                 </div>
                 <div class="search-bar">
-                    <input type="text" id="stockSearch" placeholder="Search stock items...">
+                    <input type="text" id="stockSearch" placeholder="Search by item name, serial number, location...">
+                </div>
+                <div class="filter-controls" style="margin-bottom: 20px; display: flex; gap: 15px;">
+                    <select id="locationFilter" style="padding: 10px 15px; background-color: var(--card-bg); border: 2px solid var(--border-color); border-radius: 8px; color: var(--text-primary);">
+                        <option value="">All Locations</option>
+                        <option value="warehouse-a">Warehouse A</option>
+                        <option value="warehouse-b">Warehouse B</option>
+                        <option value="office">Office</option>
+                        <option value="storage">Storage Room</option>
+                    </select>
+                    <select id="categoryFilter" style="padding: 10px 15px; background-color: var(--card-bg); border: 2px solid var(--border-color); border-radius: 8px; color: var(--text-primary);">
+                        <option value="">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="appliances">Appliances</option>
+                        <option value="furniture">Furniture</option>
+                        <option value="tools">Tools</option>
+                    </select>
+                    <button class="btn-secondary" id="aiCategorizeBtn">🤖 AI Categorize</button>
                 </div>
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Item ID</th>
+                            <th>Serial Number</th>
                             <th>Item Name</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
+                            <th>Brand</th>
+                            <th>Location</th>
                             <th>Category</th>
+                            <th>Quantity</th>
                             <th>Last Updated</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="stockTable">
-                        <tr><td colspan="7">Loading...</td></tr>
+                    <tbody id="stocksTable">
+                        <tr><td colspan="8">Loading stock items...</td></tr>
                     </tbody>
                 </table>
             </section>
@@ -104,7 +119,7 @@
                     <button class="btn-primary" id="addCustomerBtn">+ Add Customer</button>
                 </div>
                 <div class="search-bar">
-                    <input type="text" id="customerSearch" placeholder="Search customers...">
+                    <input type="text" id="customerSearch" placeholder="Search customers by name, email, phone...">
                 </div>
                 <table class="data-table">
                     <thead>
@@ -119,89 +134,83 @@
                         </tr>
                     </thead>
                     <tbody id="customersTable">
-                        <tr><td colspan="7">Loading...</td></tr>
+                        <tr><td colspan="7">Loading customers...</td></tr>
                     </tbody>
                 </table>
             </section>
 
-            <!-- Orders Section -->
-            <section id="orders" class="content-section">
-                <div class="section-header">
-                    <h1>Orders & Purchases</h1>
-                    <button class="btn-primary" id="addOrderBtn">+ New Order</button>
-                </div>
-                <div class="search-bar">
-                    <input type="text" id="orderSearch" placeholder="Search orders...">
-                </div>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Customer</th>
-                            <th>Items</th>
-                            <th>Total</th>
-                            <th>Status</th>
-                            <th>Order Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ordersTable">
-                        <tr><td colspan="7">Loading...</td></tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <!-- Query Tool Section (Built-in QNE Alternative) -->
-            <section id="query" class="content-section">
-                <h1>Query Tool (Database Search)</h1>
-                <div class="query-builder">
-                    <div class="query-form">
-                        <label>Select Table:</label>
-                        <select id="queryTable">
-                            <option value="">-- Choose a table --</option>
-                            <option value="stock">Stock</option>
-                            <option value="customers">Customers</option>
-                            <option value="orders">Orders</option>
-                        </select>
-
-                        <label>Search Field:</label>
-                        <input type="text" id="queryField" placeholder="e.g., name, email, item_name">
-
-                        <label>Search Value:</label>
-                        <input type="text" id="queryValue" placeholder="e.g., John, john@email.com">
-
-                        <button class="btn-primary" id="executeQueryBtn">Execute Query</button>
+            <!-- Settings Section -->
+            <section id="settings" class="content-section">
+                <h1>Settings</h1>
+                <div class="settings-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div style="background-color: var(--card-bg); padding: 25px; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <h3>Account Settings</h3>
+                        <p style="color: var(--text-secondary); margin: 15px 0;">Manage your profile and password</p>
+                        <button class="btn-primary" style="width: 100%;">Edit Account</button>
                     </div>
-                    <div class="query-results">
-                        <h3>Results:</h3>
-                        <div id="queryResults"></div>
+                    <div style="background-color: var(--card-bg); padding: 25px; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <h3>Database Connection</h3>
+                        <p style="color: var(--text-secondary); margin: 15px 0;">Configure Cloudflare Tunnel settings</p>
+                        <button class="btn-primary" style="width: 100%;">Connection Settings</button>
+                    </div>
+                    <div style="background-color: var(--card-bg); padding: 25px; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <h3>Backup & Export</h3>
+                        <p style="color: var(--text-secondary); margin: 15px 0;">Export data or manage backups</p>
+                        <button class="btn-primary" style="width: 100%;">Backup Options</button>
+                    </div>
+                    <div style="background-color: var(--card-bg); padding: 25px; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <h3>AI Settings</h3>
+                        <p style="color: var(--text-secondary); margin: 15px 0;">Configure AI categorization options</p>
+                        <button class="btn-primary" style="width: 100%;">AI Configuration</button>
+                    </div>
+                    <div style="background-color: var(--card-bg); padding: 25px; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <h3>Audit Log</h3>
+                        <p style="color: var(--text-secondary); margin: 15px 0;">View all system activity and changes</p>
+                        <button class="btn-primary" style="width: 100%;">View Audit Log</button>
+                    </div>
+                    <div style="background-color: var(--card-bg); padding: 25px; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <h3>Security</h3>
+                        <p style="color: var(--text-secondary); margin: 15px 0;">2FA, Sessions, and permissions</p>
+                        <button class="btn-primary" style="width: 100%;">Security Options</button>
                     </div>
                 </div>
             </section>
 
-            <!-- Audit Log Section -->
-            <section id="audit" class="content-section">
-                <h1>Audit Log</h1>
-                <div class="audit-filters">
-                    <input type="date" id="auditStartDate">
-                    <input type="date" id="auditEndDate">
-                    <button class="btn-secondary" id="filterAuditBtn">Filter</button>
+            <!-- Others Section -->
+            <section id="others" class="content-section">
+                <h1>Additional Features</h1>
+                <div class="others-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div style="background-color: var(--card-bg); padding: 25px; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <h3>🔍 Query Tool</h3>
+                        <p style="color: var(--text-secondary); margin: 15px 0;">Built-in database search and query builder (like QNE)</p>
+                        <button class="btn-primary" style="width: 100%;">Open Query Tool</button>
+                    </div>
+                    <div style="background-color: var(--card-bg); padding: 25px; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <h3>📊 Reports</h3>
+                        <p style="color: var(--text-secondary); margin: 15px 0;">Generate and download reports</p>
+                        <button class="btn-primary" style="width: 100%;">Create Report</button>
+                    </div>
+                    <div style="background-color: var(--card-bg); padding: 25px; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <h3>📤 Import/Export</h3>
+                        <p style="color: var(--text-secondary); margin: 15px 0;">Bulk import or export inventory data</p>
+                        <button class="btn-primary" style="width: 100%;">Import/Export</button>
+                    </div>
+                    <div style="background-color: var(--card-bg); padding: 25px; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <h3>📋 Order Management</h3>
+                        <p style="color: var(--text-secondary); margin: 15px 0;">Create and track customer orders</p>
+                        <button class="btn-primary" style="width: 100%;">View Orders</button>
+                    </div>
+                    <div style="background-color: var(--card-bg); padding: 25px; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <h3>🔐 API Documentation</h3>
+                        <p style="color: var(--text-secondary); margin: 15px 0;">REST API docs for integration</p>
+                        <button class="btn-primary" style="width: 100%;">View API Docs</button>
+                    </div>
+                    <div style="background-color: var(--card-bg); padding: 25px; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <h3>ℹ️ Help & Support</h3>
+                        <p style="color: var(--text-secondary); margin: 15px 0;">Documentation and support center</p>
+                        <button class="btn-primary" style="width: 100%;">Help Center</button>
+                    </div>
                 </div>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Timestamp</th>
-                            <th>User</th>
-                            <th>Action</th>
-                            <th>Table</th>
-                            <th>Details</th>
-                            <th>IP Address</th>
-                        </tr>
-                    </thead>
-                    <tbody id="auditTable">
-                        <tr><td colspan="6">Loading...</td></tr>
-                    </tbody>
-                </table>
             </section>
         </main>
     </div>
@@ -215,7 +224,6 @@
     </div>
 
     <script src="js/auth.js"></script>
-    <script src="js/fileManager.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
 </html>
