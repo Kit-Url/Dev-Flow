@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev-Flow Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">Dev-Flow</div>
+            <div class="user-menu">
+                <span id="username"></span>
+                <button id="logoutBtn" class="btn-logout">Logout</button>
+            </div>
+        </header>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="nav-menu">
+                <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                    <span class="icon">📊</span> Dashboard
+                </a>
+                <a href="#stock" class="nav-item" data-section="stock">
+                    <span class="icon">📦</span> Stock/Inventory
+                </a>
+                <a href="#customers" class="nav-item" data-section="customers">
+                    <span class="icon">👥</span> Customers
+                </a>
+                <a href="#orders" class="nav-item" data-section="orders">
+                    <span class="icon">🛒</span> Orders/Purchases
+                </a>
+                <a href="#query" class="nav-item" data-section="query">
+                    <span class="icon">🔍</span> Query Tool
+                </a>
+                <a href="#audit" class="nav-item" data-section="audit">
+                    <span class="icon">📋</span> Audit Log
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <h1>Welcome to Dev-Flow</h1>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Stock Items</h3>
+                        <p class="stat-number" id="totalStock">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Active Customers</h3>
+                        <p class="stat-number" id="totalCustomers">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Orders</h3>
+                        <p class="stat-number" id="totalOrders">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Low Stock Items</h3>
+                        <p class="stat-number" id="lowStock">0</p>
+                    </div>
+                </div>
+                <div class="recent-activity">
+                    <h2>Recent Activity</h2>
+                    <div id="activityLog"></div>
+                </div>
+            </section>
+
+            <!-- Stock/Inventory Section -->
+            <section id="stock" class="content-section">
+                <div class="section-header">
+                    <h1>Stock/Inventory Management</h1>
+                    <button class="btn-primary" id="addStockBtn">+ Add Stock Item</button>
+                </div>
+                <div class="search-bar">
+                    <input type="text" id="stockSearch" placeholder="Search stock items...">
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Item ID</th>
+                            <th>Item Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Last Updated</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stockTable">
+                        <tr><td colspan="7">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Customers Section -->
+            <section id="customers" class="content-section">
+                <div class="section-header">
+                    <h1>Customer Management</h1>
+                    <button class="btn-primary" id="addCustomerBtn">+ Add Customer</button>
+                </div>
+                <div class="search-bar">
+                    <input type="text" id="customerSearch" placeholder="Search customers...">
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>City</th>
+                            <th>Joined Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customersTable">
+                        <tr><td colspan="7">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders" class="content-section">
+                <div class="section-header">
+                    <h1>Orders & Purchases</h1>
+                    <button class="btn-primary" id="addOrderBtn">+ New Order</button>
+                </div>
+                <div class="search-bar">
+                    <input type="text" id="orderSearch" placeholder="Search orders...">
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Order Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTable">
+                        <tr><td colspan="7">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Query Tool Section (Built-in QNE Alternative) -->
+            <section id="query" class="content-section">
+                <h1>Query Tool (Database Search)</h1>
+                <div class="query-builder">
+                    <div class="query-form">
+                        <label>Select Table:</label>
+                        <select id="queryTable">
+                            <option value="">-- Choose a table --</option>
+                            <option value="stock">Stock</option>
+                            <option value="customers">Customers</option>
+                            <option value="orders">Orders</option>
+                        </select>
+
+                        <label>Search Field:</label>
+                        <input type="text" id="queryField" placeholder="e.g., name, email, item_name">
+
+                        <label>Search Value:</label>
+                        <input type="text" id="queryValue" placeholder="e.g., John, john@email.com">
+
+                        <button class="btn-primary" id="executeQueryBtn">Execute Query</button>
+                    </div>
+                    <div class="query-results">
+                        <h3>Results:</h3>
+                        <div id="queryResults"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Audit Log Section -->
+            <section id="audit" class="content-section">
+                <h1>Audit Log</h1>
+                <div class="audit-filters">
+                    <input type="date" id="auditStartDate">
+                    <input type="date" id="auditEndDate">
+                    <button class="btn-secondary" id="filterAuditBtn">Filter</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>Table</th>
+                            <th>Details</th>
+                            <th>IP Address</th>
+                        </tr>
+                    </thead>
+                    <tbody id="auditTable">
+                        <tr><td colspan="6">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for Add/Edit -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/fileManager.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
